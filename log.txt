@@ -1,0 +1,18 @@
+INFO:     2023-06-07 16:10:15,801 - Config loaded
+INFO:     2023-06-07 16:10:15,801 - TelegramParser inited
+INFO:     2023-06-07 16:10:15,801 - API: inited
+INFO:     2023-06-07 16:10:15,804 - Bot: inited
+INFO:     2023-06-07 16:10:15,815 - Server: inited
+INFO:     2023-06-07 16:10:15,815 - Finished inited process
+INFO:     2023-06-07 16:10:15,815 - Starting threading
+INFO:     2023-06-07 16:10:15,817 - Server: Starting
+INFO:     2023-06-07 16:10:15,821 - Connecting to 149.154.167.51:443/TcpFull...
+INFO:     2023-06-07 16:10:15,872 - Connection to 149.154.167.51:443/TcpFull complete!
+INFO:     2023-06-07 16:10:16,321 - Parser: starting listening
+INFO:     2023-06-07 16:10:23,717 - Parser: Getting post from channel postypashki_old
+INFO:     2023-06-07 16:11:11,999 - Parser: Getting post from channel postowl_test
+INFO:     2023-06-07 16:14:18,850 - Disconnecting from 149.154.167.51:443/TcpFull...
+INFO:     2023-06-07 16:14:18,851 - Disconnection from 149.154.167.51:443/TcpFull complete!
+INFO:     2023-06-07 16:14:18,852 - Not disconnecting (already have no connection)
+INFO:     2023-06-07 16:14:18,867 - Not disconnecting (already have no connection)
+INFO:     2023-06-07 16:14:18,877 - Finishing process
