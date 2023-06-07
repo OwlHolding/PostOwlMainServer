@@ -7,6 +7,7 @@ import json
 import logging
 import threading
 
+
 logging.basicConfig(level=logging.INFO, format="%(levelname)s:     %(asctime)s - %(message)s", filename="log.txt",
                     filemode="w")
 
@@ -22,7 +23,8 @@ Bot = bot.Bot(config)
 logging.info("Setting handlers")
 
 
-def handler(channel, text):
+async def handler(channel, text):
+    users = await API.predict(text, channel, [2009584602])
     Bot.send_post([2009584602], text, channel)
 
 

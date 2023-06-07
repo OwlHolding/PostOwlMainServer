@@ -8,8 +8,9 @@ class API:
 
     def __init__(self, config: dict):
         """Принимает список IP адресов ML-серверов"""
+
         if len(config['ml_api_ips']) == 1:
-            self.ips = config['ml_api_ips'][0]
+            self.ips = config['ml_api_ips']
         else:
             self.ips = {}
             for key in config['ml_api_ips']:
@@ -19,9 +20,10 @@ class API:
 
     def get_ip(self, value: int):
         if len(self.ips) == 1:
-            return self.ips
+            return self.ips[0]
 
         else:
+            print(self.ips)
             ip = sorted(self.ips, key=lambda x: self.ips[x])[0]
             self.ips[ip] = value
             return ip

@@ -1,18 +1,97 @@
-INFO:     2023-06-07 16:10:15,801 - Config loaded
-INFO:     2023-06-07 16:10:15,801 - TelegramParser inited
-INFO:     2023-06-07 16:10:15,801 - API: inited
-INFO:     2023-06-07 16:10:15,804 - Bot: inited
-INFO:     2023-06-07 16:10:15,815 - Server: inited
-INFO:     2023-06-07 16:10:15,815 - Finished inited process
-INFO:     2023-06-07 16:10:15,815 - Starting threading
-INFO:     2023-06-07 16:10:15,817 - Server: Starting
-INFO:     2023-06-07 16:10:15,821 - Connecting to 149.154.167.51:443/TcpFull...
-INFO:     2023-06-07 16:10:15,872 - Connection to 149.154.167.51:443/TcpFull complete!
-INFO:     2023-06-07 16:10:16,321 - Parser: starting listening
-INFO:     2023-06-07 16:10:23,717 - Parser: Getting post from channel postypashki_old
-INFO:     2023-06-07 16:11:11,999 - Parser: Getting post from channel postowl_test
-INFO:     2023-06-07 16:14:18,850 - Disconnecting from 149.154.167.51:443/TcpFull...
-INFO:     2023-06-07 16:14:18,851 - Disconnection from 149.154.167.51:443/TcpFull complete!
-INFO:     2023-06-07 16:14:18,852 - Not disconnecting (already have no connection)
-INFO:     2023-06-07 16:14:18,867 - Not disconnecting (already have no connection)
-INFO:     2023-06-07 16:14:18,877 - Finishing process
+INFO:     2023-06-07 17:26:51,812 - Config loaded
+INFO:     2023-06-07 17:26:51,813 - TelegramParser inited
+INFO:     2023-06-07 17:26:51,813 - API: inited
+INFO:     2023-06-07 17:26:51,816 - Bot: inited
+INFO:     2023-06-07 17:26:51,816 - Setting handlers
+INFO:     2023-06-07 17:26:51,837 - Server: inited
+INFO:     2023-06-07 17:26:51,837 - Finished inited process
+INFO:     2023-06-07 17:26:51,838 - Starting threading
+INFO:     2023-06-07 17:26:51,839 - Server: Starting
+INFO:     2023-06-07 17:26:51,844 - Connecting to 149.154.167.51:443/TcpFull...
+INFO:     2023-06-07 17:26:51,898 - Connection to 149.154.167.51:443/TcpFull complete!
+INFO:     2023-06-07 17:26:52,483 - Parser: starting listening
+INFO:     2023-06-07 17:26:58,938 - Parser: Getting post from channel postowl_test
+INFO:     2023-06-07 17:26:58,938 - API: predict request for postowl_test and users: [2009584602]
+ERROR:     2023-06-07 17:27:03,038 - Unhandled exception on func
+Traceback (most recent call last):
+  File "D:\IT-projects\PostOwl (Большие вызовы 22.23)\PostOwlMainServer\venv\Lib\site-packages\urllib3\connection.py", line 200, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\IT-projects\PostOwl (Большие вызовы 22.23)\PostOwlMainServer\venv\Lib\site-packages\urllib3\util\connection.py", line 85, in create_connection
+    raise err
+  File "D:\IT-projects\PostOwl (Большие вызовы 22.23)\PostOwlMainServer\venv\Lib\site-packages\urllib3\util\connection.py", line 73, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\IT-projects\PostOwl (Большие вызовы 22.23)\PostOwlMainServer\venv\Lib\site-packages\urllib3\connectionpool.py", line 790, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "D:\IT-projects\PostOwl (Большие вызовы 22.23)\PostOwlMainServer\venv\Lib\site-packages\urllib3\connectionpool.py", line 496, in _make_request
+    conn.request(
+  File "D:\IT-projects\PostOwl (Большие вызовы 22.23)\PostOwlMainServer\venv\Lib\site-packages\urllib3\connection.py", line 388, in request
+    self.endheaders()
+  File "C:\Users\kiril\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1278, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\kiril\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1038, in _send_output
+    self.send(msg)
+  File "C:\Users\kiril\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 976, in send
+    self.connect()
+  File "D:\IT-projects\PostOwl (Большие вызовы 22.23)\PostOwlMainServer\venv\Lib\site-packages\urllib3\connection.py", line 236, in connect
+    self.sock = self._new_conn()
+                ^^^^^^^^^^^^^^^^
+  File "D:\IT-projects\PostOwl (Большие вызовы 22.23)\PostOwlMainServer\venv\Lib\site-packages\urllib3\connection.py", line 215, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x00000275B7BBED10>: Failed to establish a new connection: [WinError 10061] Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\IT-projects\PostOwl (Большие вызовы 22.23)\PostOwlMainServer\venv\Lib\site-packages\requests\adapters.py", line 486, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "D:\IT-projects\PostOwl (Большие вызовы 22.23)\PostOwlMainServer\venv\Lib\site-packages\urllib3\connectionpool.py", line 844, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "D:\IT-projects\PostOwl (Большие вызовы 22.23)\PostOwlMainServer\venv\Lib\site-packages\urllib3\util\retry.py", line 515, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /predict/ (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000275B7BBED10>: Failed to establish a new connection: [WinError 10061] Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\IT-projects\PostOwl (Большие вызовы 22.23)\PostOwlMainServer\venv\Lib\site-packages\telethon\client\updates.py", line 543, in _dispatch_update
+    await callback(event)
+  File "D:\IT-projects\PostOwl (Большие вызовы 22.23)\PostOwlMainServer\parser.py", line 29, in func
+    await handler(channel_name, message)
+  File "D:\IT-projects\PostOwl (Большие вызовы 22.23)\PostOwlMainServer\main.py", line 28, in handler
+    users = await API.predict(text, channel, [2009584602])
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\IT-projects\PostOwl (Большие вызовы 22.23)\PostOwlMainServer\api.py", line 55, in predict
+    return json.loads(requests.post(f"http://{self.get_ip(4)}/predict/", data=data).content)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\IT-projects\PostOwl (Большие вызовы 22.23)\PostOwlMainServer\venv\Lib\site-packages\requests\api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\IT-projects\PostOwl (Большие вызовы 22.23)\PostOwlMainServer\venv\Lib\site-packages\requests\api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\IT-projects\PostOwl (Большие вызовы 22.23)\PostOwlMainServer\venv\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\IT-projects\PostOwl (Большие вызовы 22.23)\PostOwlMainServer\venv\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\IT-projects\PostOwl (Большие вызовы 22.23)\PostOwlMainServer\venv\Lib\site-packages\requests\adapters.py", line 519, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /predict/ (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000275B7BBED10>: Failed to establish a new connection: [WinError 10061] Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение'))
+INFO:     2023-06-07 17:29:18,719 - Parser: Getting post from channel postowl_test
+INFO:     2023-06-07 17:29:18,719 - API: predict request for postowl_test and users: [2009584602]
+INFO:     2023-06-07 17:30:48,724 - Disconnecting from 149.154.167.51:443/TcpFull...
+INFO:     2023-06-07 17:30:48,726 - Disconnection from 149.154.167.51:443/TcpFull complete!
+INFO:     2023-06-07 17:30:48,726 - Not disconnecting (already have no connection)
+INFO:     2023-06-07 17:30:48,742 - Not disconnecting (already have no connection)
+INFO:     2023-06-07 17:30:48,753 - Finishing process

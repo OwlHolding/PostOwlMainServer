@@ -26,7 +26,7 @@ class Parser:
                 channel_name = channel.username
                 if channel_name and not ("bot" in channel_name.lower()):
                     logging.info(f"Parser: Getting post from channel {channel_name}")
-                    handler(channel_name, message)
+                    await handler(channel_name, message)
 
             logging.info("Parser: starting listening")
             self.client.run_until_disconnected()
