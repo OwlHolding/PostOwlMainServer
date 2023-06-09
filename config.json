@@ -2,8 +2,13 @@
   "telegram_api_id": 29824982,
   "telegram_api_hash": "730bac897bbcf9990a0964669e31b25b",
   "ml_api_ips": ["localhost:8000"],
-  "server_ip": "localhost",
+  "server_host": "localhost",
   "server_port": 80,
   "server_use_ssl": false,
-  "bot_token": "5423112895:AAHKzM57uQDlKkaOC2_p8hV9Et_DsUalz-4"
+  "bot_token": "5423112895:AAHKzM57uQDlKkaOC2_p8hV9Et_DsUalz-4",
+  "db_host": "localhost",
+  "db_user": "root",
+  "db_password": "1234",
+  "redis_host": "localhost",
+  "redis_port": 6379
 }

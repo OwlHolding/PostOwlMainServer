@@ -1,7 +1,9 @@
 import api
 import parser
 import server
-import bot
+import database
+import manager
+import states
 
 import json
 import logging
@@ -18,21 +20,14 @@ logging.info("Config loaded")
 
 Parser = parser.Parser(config)
 API = api.API(config)
-Bot = bot.Bot(config)
+DataBase = database.DataBase(config)
+StateStorage = states.StateStorage(config)
 
-logging.info("Setting handlers")
+controller = manager.Manager(config, api=API, server=None, database=DataBase, parser=Parser, states=StateStorage)
 
+Server = server.Server(config, controller.bot_handler)
 
-async def handler(channel, text):
-    users = await API.predict(text, channel, [2009584602])
-    Bot.send_post([2009584602], text, channel)
-
-
-def bot_handler(data):
-    Bot.handler(data)
-
-
-Server = server.Server(config, bot_handler)
+controller.server = Server
 
 logging.info("Finished inited process")
 
@@ -41,6 +36,6 @@ logging.info("Starting threading")
 server_thread = threading.Thread(target=Server.start)
 server_thread.start()
 
-Parser.start(handler)
+Parser.start(controller.parser_handler)
 
 logging.info("Finishing process")

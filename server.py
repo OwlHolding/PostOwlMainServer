@@ -7,6 +7,7 @@ import ssl
 class Server:
 
     def __init__(self, config, bot_handler):
+
         class HttpHandler(BaseHTTPRequestHandler):
 
             def do_POST(self):
@@ -20,7 +21,7 @@ class Server:
                 self.send_response(200)
                 self.end_headers()
 
-        self.server = HTTPServer((config['server_ip'], config['server_port']), HttpHandler)
+        self.server = HTTPServer((config['server_host'], config['server_port']), HttpHandler)
 
         if config['server_use_ssl']:
             sslctx = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
