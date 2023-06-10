@@ -31,5 +31,3 @@ class Manager:
 
     async def parser_handler(self, channel, text):
         print(channel, text)
-
-

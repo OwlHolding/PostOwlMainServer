@@ -3,7 +3,7 @@ import logging
 
 
 class Parser:
-    """Класс для работы с telegram каналами"""
+    """Класс для работы с telegram-каналами"""
 
     def __init__(self, config):
         self.client = None

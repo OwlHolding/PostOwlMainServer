@@ -16,12 +16,15 @@ logging.basicConfig(level=logging.INFO, format="%(levelname)s:     %(asctime)s -
 with open("config.json", 'rb') as file:
     config = json.load(file)
 
+
+bot_states = ['adding-channel', 'deleting-channel']
+
 logging.info("Config loaded")
 
 Parser = parser.Parser(config)
 API = api.API(config)
 DataBase = database.DataBase(config)
-StateStorage = states.StateStorage(config)
+StateStorage = states.StateStorage(config, state_alias=bot_states)
 
 controller = manager.Manager(config, api=API, server=None, database=DataBase, parser=Parser, states=StateStorage)
 

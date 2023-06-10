@@ -5,6 +5,7 @@ import ssl
 
 
 class Server:
+    """Класс реализующий сбор запросов с web-hook"""
 
     def __init__(self, config, bot_handler):
 

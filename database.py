@@ -4,6 +4,7 @@ import logging
 
 
 class DataBase:
+    """Класс для работы с базой данных"""
 
     def __init__(self, config):
 
