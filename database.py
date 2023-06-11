@@ -1,6 +1,7 @@
 import mysql.connector
 from mysql.connector import Error
 import logging
+import json
 
 
 class DataBase:
@@ -96,3 +97,11 @@ class DataBase:
         for user in self.execute_read_query(query):
             users.append(user[0])
         return users
+
+    def get_info(self, user_id: int):
+        query = f"SELECT channels FROM users WHERE id = {user_id}"
+        channels = []
+        for channel in self.execute_read_query(query):
+            channels.append(channel[0])
+
+        return channels

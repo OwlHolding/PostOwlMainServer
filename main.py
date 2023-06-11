@@ -17,7 +17,7 @@ with open("config.json", 'rb') as file:
     config = json.load(file)
 
 
-bot_states = ['adding-channel', 'deleting-channel']
+bot_states = ['adding-channel', 'deleting-channel', 'idle']
 
 logging.info("Config loaded")
 

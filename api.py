@@ -28,23 +28,23 @@ class API:
             self.ips[ip] = value
             return ip
 
-    async def add_user(self, user_id: int):
+    def add_user(self, user_id: int):
         logging.info(f"API: add user {user_id}")
         requests.post(f"http://{self.get_ip(1)}/add-user/{user_id}/")
 
-    async def del_user(self, user_id: int):
+    def del_user(self, user_id: int):
         logging.info(f"API: del user {user_id}")
         requests.delete(f"http://{self.get_ip(1)}/del-user/{user_id}/")
 
-    async def add_channel(self, user_id: int, channel: str):
+    def add_channel(self, user_id: int, channel: str):
         logging.info(f"API: add channel {channel} for {user_id}")
         requests.post(f"http://{self.get_ip(1)}/add-channel/{user_id}/{channel}/")
 
-    async def del_channel(self, user_id: int, channel: str):
+    def del_channel(self, user_id: int, channel: str):
         logging.info(f"API: del channel {channel} for {user_id}")
         requests.delete(f"http://{self.get_ip(1)}/del-channel/{user_id}/{channel}/")
 
-    async def predict(self, post: str, channel: str, users: list[int]) -> list:
+    def predict(self, post: str, channel: str, users: list[int]) -> list:
         logging.info(f"API: predict request for {channel} and users: {users}")
         data = json.dumps({
             "post": post,
@@ -52,9 +52,9 @@ class API:
             "users": users
         })
 
-        return json.loads(requests.post(f"http://{self.get_ip(4)}/predict/", data=data).content)
+        return json.loads(requests.post(f"http://{self.get_ip(4)}/predict/", data=data).content)['users']
 
-    async def train(self, user_id: int, channel: str, post: str, label: bool):
+    def train(self, user_id: int, channel: str, post: str, label: bool):
         logging.info(f"API: train request for {channel} from {user_id}")
         data = json.dumps({
             "text": post,
