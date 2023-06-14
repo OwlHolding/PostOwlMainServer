@@ -100,8 +100,6 @@ class DataBase:
 
     def get_info(self, user_id: int):
         query = f"SELECT channels FROM users WHERE id = {user_id}"
-        channels = []
-        for channel in self.execute_read_query(query):
-            channels.append(channel[0])
-
+        channels = self.execute_read_query(query)[0][0].split('&')
         return channels
+

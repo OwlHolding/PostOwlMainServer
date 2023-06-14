@@ -2,6 +2,7 @@ import logging
 import telebot
 import dialog
 import utils
+import asyncio
 
 
 class Manager:
@@ -33,15 +34,17 @@ class Manager:
 
             elif message.text == '/info':
                 data = self.database.get_info(message.from_user.id)
-                text = dialog.INFO + "\n".join(data)
+                text = dialog.INFO
+                for channel in data:
+                    text += f"<code>{channel}</code>\n"
                 self.bot.send_message(message.from_user.id, text, parse_mode="HTML")
+                self.states.set_state(message.from_user.id, "idle")
 
             elif message.text == '/cancel':
                 self.states.set_state(message.from_user.id, "idle")
                 self.bot.send_message(message.from_user.id, dialog.CANCELED, parse_mode="HTML")
 
             else:
-
                 state = self.states.get_state(message.from_user.id)
 
                 if state == 'adding-channel':
@@ -53,6 +56,7 @@ class Manager:
                     if utils.channel_is_exist(channel_name):
                         self.api.add_channel(message.from_user.id, channel_name)
                         self.database.add_channel(message.from_user.id, channel_name)
+                        self.parser.add_channel(channel_name)
                         self.bot.send_message(message.from_user.id, dialog.CHANNEL_ADDED, parse_mode="HTML")
                     else:
                         self.bot.send_message(message.from_user.id, dialog.ADDING_UNKNOWN_CHANNEL, parse_mode="HTML")
@@ -77,6 +81,7 @@ class Manager:
                 else:
                     self.bot.send_message(message.from_user.id, dialog.UNKNOWN_COMMAND, parse_mode="HTML")
 
+        self.bot.set_webhook(config['webhook_url'])
         logging.info("Manager: inited")
 
     def bot_handler(self, data):

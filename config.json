@@ -10,5 +10,6 @@
   "db_user": "root",
   "db_password": "1234",
   "redis_host": "localhost",
-  "redis_port": 6379
+  "redis_port": 6379,
+  "webhook_url": "https://61a7-94-253-80-113.ngrok-free.app"
 }

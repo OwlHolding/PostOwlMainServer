@@ -4,3 +4,4 @@ pyTelegramBotAPI~=4.12.0
 aiohttp~=3.8.4
 mysql-connector-python~=8.0.33
 redis~=4.5.5
+requests-futures==1.0.0

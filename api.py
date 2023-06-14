@@ -1,6 +1,6 @@
 import json
-import requests
 import logging
+from requests_futures.sessions import FuturesSession
 
 
 class API:
@@ -16,6 +16,8 @@ class API:
             for key in config['ml_api_ips']:
                 self.ips[key] = 0
 
+        self.session = FuturesSession()
+
         logging.info("API: inited")
 
     def get_ip(self, value: int):
@@ -30,19 +32,19 @@ class API:
 
     def add_user(self, user_id: int):
         logging.info(f"API: add user {user_id}")
-        requests.post(f"http://{self.get_ip(1)}/add-user/{user_id}/")
+        self.session.post(f"http://{self.get_ip(1)}/add-user/{user_id}/")
 
     def del_user(self, user_id: int):
         logging.info(f"API: del user {user_id}")
-        requests.delete(f"http://{self.get_ip(1)}/del-user/{user_id}/")
+        self.session.delete(f"http://{self.get_ip(1)}/del-user/{user_id}/")
 
     def add_channel(self, user_id: int, channel: str):
         logging.info(f"API: add channel {channel} for {user_id}")
-        requests.post(f"http://{self.get_ip(1)}/add-channel/{user_id}/{channel}/")
+        self.session.post(f"http://{self.get_ip(1)}/add-channel/{user_id}/{channel}/")
 
     def del_channel(self, user_id: int, channel: str):
         logging.info(f"API: del channel {channel} for {user_id}")
-        requests.delete(f"http://{self.get_ip(1)}/del-channel/{user_id}/{channel}/")
+        self.session.delete(f"http://{self.get_ip(1)}/del-channel/{user_id}/{channel}/")
 
     def predict(self, post: str, channel: str, users: list[int]) -> list:
         logging.info(f"API: predict request for {channel} and users: {users}")
@@ -52,7 +54,10 @@ class API:
             "users": users
         })
 
-        return json.loads(requests.post(f"http://{self.get_ip(4)}/predict/", data=data).content)['users']
+        request = self.session.post(f"http://{self.get_ip(4)}/predict/", data=data)
+        response = request.result()
+
+        return json.loads(response.content)['users']
 
     def train(self, user_id: int, channel: str, post: str, label: bool):
         logging.info(f"API: train request for {channel} from {user_id}")
@@ -61,4 +66,4 @@ class API:
             "label": label
         })
 
-        requests.put(f"http://{self.get_ip(5)}/train/{user_id}/{channel}/", data=data)
+        self.session.put(f"http://{self.get_ip(5)}/train/{user_id}/{channel}/", data=data)

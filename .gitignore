@@ -161,3 +161,4 @@ cython_debug/
 
 log.txt
 session.session
+session.session-journal
