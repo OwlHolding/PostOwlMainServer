@@ -1,0 +1,7 @@
+.vscode/
+.vscode/*
+
+certs/*
+certs/
+
+config.json
