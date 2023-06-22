@@ -19,6 +19,7 @@ func main() {
 	InitBot(config, ProcessDialog)
 	InitServer(config, ProcessRequest, ProcessPost)
 
-	err := fasthttp.ListenAndServe(":"+config.Port, ServerHandler)
+	err := fasthttp.ListenAndServeTLS(":"+config.Port, config.CertFile, config.KeyFile,
+		ServerHandler)
 	log.Fatal(err)
 }
