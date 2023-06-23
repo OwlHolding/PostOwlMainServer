@@ -17,11 +17,14 @@ var BanList []int64
 var AdminChatIDs []int64
 var AccessKeys []string
 
+var MaxChannels int
+
 func InitDialog(config ServerConfig) {
 	WhiteList = config.WhiteList
 	BanList = config.BanList
 	AdminChatIDs = config.AdminChatIDs
 	AccessKeys = config.AccessKeys
+	MaxChannels = config.ChansPerUser
 
 	log.Println("Dialog: inited")
 }
@@ -124,6 +127,9 @@ func ProcessDialog(userID int64, text string, username string) {
 
 		if state == StateWaitAddChannel {
 
+			if len(DataBaseInfo(userID)) >= MaxChannels {
+				SendMessage(userID, fmt.Sprintf(MessageChannelOverflow, MaxChannels))
+			}
 			text = strings.ReplaceAll(text, "https://t.me/", "")
 			text = strings.ReplaceAll(text, "@", "")
 
@@ -143,7 +149,6 @@ func ProcessDialog(userID int64, text string, username string) {
 
 			if !DataBaseDelChannel(userID, text) {
 				SendMessage(userID, MessageChannelNotExists)
-
 			} else {
 				go ApiDelChannel(userID, text)
 				go TelegramDelChannel(text)
