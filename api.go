@@ -10,20 +10,26 @@ import (
 	"time"
 )
 
-var MlServers []string
+var MLServers []string
+var Balancer LoadBalancer
 
 func InitApi(config ServerConfig) {
 	servers := config.MlServers
-	MlServers = servers
+	MLServers = servers
+	Balancer = LoadBalancer{data: MLServers, weights: make([]int16, len(MLServers))}
+
 	log.Println("API: inited")
 }
 
-func GetMLUrl() string {
-	return MlServers[0]
+func GetMLUrl(weight int16) string {
+	if len(MLServers) == 1 {
+		return MLServers[0]
+	}
+	return Balancer.Get(weight)
 }
 
 func ApiAddUser(userID int64) {
-	url := GetMLUrl() + "add-user/" + fmt.Sprint(userID) + "/"
+	url := GetMLUrl(1) + "add-user/" + fmt.Sprint(userID) + "/"
 
 	client := http.Client{Timeout: time.Minute}
 
@@ -40,7 +46,7 @@ func ApiAddUser(userID int64) {
 }
 
 func ApiDelUser(userID int64) {
-	url := GetMLUrl() + "del-user/" + fmt.Sprint(userID) + "/"
+	url := GetMLUrl(1) + "del-user/" + fmt.Sprint(userID) + "/"
 	client := http.Client{Timeout: time.Minute}
 
 	resp, err := client.Post(url, "", nil)
@@ -57,7 +63,7 @@ func ApiDelUser(userID int64) {
 }
 
 func ApiAddChannel(userID int64, channel string) {
-	url := GetMLUrl() + "add-channel/" + fmt.Sprint(userID) + "/" + channel + "/"
+	url := GetMLUrl(1) + "add-channel/" + fmt.Sprint(userID) + "/" + channel + "/"
 	client := http.Client{Timeout: time.Minute}
 
 	resp, err := client.Post(url, "", nil)
@@ -73,7 +79,7 @@ func ApiAddChannel(userID int64, channel string) {
 }
 
 func ApiDelChannel(userID int64, channel string) {
-	url := GetMLUrl() + "del-channel/" + fmt.Sprint(userID) + "/" + channel + "/"
+	url := GetMLUrl(1) + "del-channel/" + fmt.Sprint(userID) + "/" + channel + "/"
 	client := http.Client{Timeout: time.Minute}
 
 	resp, err := client.Post(url, "", nil)
@@ -99,7 +105,7 @@ type PredictResponse struct {
 }
 
 func ApiPredict(channel string, text string, users []int64) []int64 {
-	url := GetMLUrl() + "predict/"
+	url := GetMLUrl(3) + "predict/"
 
 	request := PredictRequest{Channel: channel, Post: text, Users: users}
 
@@ -141,7 +147,7 @@ type TrainRequest struct {
 }
 
 func ApiTrain(userID int64, channel string, text string, label int16) {
-	url := GetMLUrl() + "train/" + fmt.Sprint(userID) + "/" + channel + "/"
+	url := GetMLUrl(3) + "train/" + fmt.Sprint(userID) + "/" + channel + "/"
 
 	request := TrainRequest{Text: text, Label: label}
 	json_byte, err := json.Marshal(request)
