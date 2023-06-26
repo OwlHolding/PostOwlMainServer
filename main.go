@@ -16,10 +16,10 @@ func main() {
 	InitRedis(config)
 	InitTelegram(config)
 
-	InitBot(config, ProcessDialog)
+	InitBot(config, ProcessDialog, ProcessCallback)
 	InitServer(config, ProcessRequest, ProcessPost)
 
-	err := fasthttp.ListenAndServeTLS(":"+config.Port, config.CertFile, config.KeyFile,
+	err := fasthttp.ListenAndServe(":"+config.Port,
 		ServerHandler)
 	log.Fatal(err)
 }

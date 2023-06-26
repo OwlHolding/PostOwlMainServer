@@ -20,6 +20,14 @@ func InitTelegram(config ServerConfig) {
 }
 
 func ProcessPost(PostBody []byte) {
+	defer func() {
+		err := recover()
+		if err != nil {
+			fmt.Println(err)
+			SendToAdmins(fmt.Sprintf("PostError: %s", err))
+		}
+	}()
+
 	var post Post
 	err := json.Unmarshal(PostBody, &post)
 	if err != nil {
@@ -27,11 +35,13 @@ func ProcessPost(PostBody []byte) {
 	}
 
 	users := DataBaseGetUsers(post.Channel)
-	users = ApiPredict(post.Channel, post.Text, users)
+	if len(users) > 0 {
+		users = ApiPredict(post.Channel, post.Text, users)
 
-	for _, user := range users {
-		post.Text += "\n@" + post.Channel
-		SendMessage(user, post.Text)
+		for _, user := range users {
+			post.Text += "\n@" + post.Channel
+			SendMessageWithInlineKeyboard(user, post.Text, post.Channel)
+		}
 	}
 }
 
@@ -59,4 +69,15 @@ func TelegramDelChannel(channel string) {
 		}
 	}
 	panic(fmt.Sprintf("Can`t delete channel %s from any telegram worker", channel))
+}
+
+func ChannelIsExist(channel string) bool {
+	url := "https://rsshub.app/telegram/channel/" + channel
+
+	client := http.Client{Timeout: 30 * time.Second}
+	resp, _ := client.Get(url)
+	if resp.StatusCode/10 == 20 {
+		return true
+	}
+	return false
 }

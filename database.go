@@ -119,7 +119,7 @@ func DataBaseDelChannel(userID int64, channel string) bool {
 		panic(err)
 	}
 
-	log.Printf("DataBase: Del channel %s to user %d \n", channel, userID)
+	log.Printf("DataBase: Del channel %s from user %d \n", channel, userID)
 	return true
 }
 

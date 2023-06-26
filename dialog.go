@@ -65,7 +65,7 @@ func ProcessDialog(userID int64, text string, username string) {
 	defer func() {
 		err := recover()
 		if err != nil {
-			log.Print(err)
+			log.Println(err)
 			SendMessage(userID, MessageError)
 			SendToAdmins(fmt.Sprintf(`Error: "%s"; Username: @%s`, err, username))
 		}
@@ -133,13 +133,20 @@ func ProcessDialog(userID int64, text string, username string) {
 			text = strings.ReplaceAll(text, "https://t.me/", "")
 			text = strings.ReplaceAll(text, "@", "")
 
-			if !DataBaseAddChannel(userID, text) {
-				SendMessage(userID, MessageChannelAlreadyAdded)
+			if ChannelIsExist(text) {
+				if !DataBaseAddChannel(userID, text) {
+					SendMessage(userID, MessageChannelAlreadyAdded)
+				} else {
+					go ApiAddChannel(userID, text)
+					if len(DataBaseGetUsers(text)) == 0 {
+						go TelegramAddChannel(text)
+					}
+					SendMessage(userID, fmt.Sprintf(MessageAddChannelOK, text))
+				}
 			} else {
-				go ApiAddChannel(userID, text)
-				go TelegramAddChannel(text)
-				SendMessage(userID, fmt.Sprintf(MessageAddChannelOK, text))
+				SendMessage(userID, MessageChannelNotExists)
 			}
+
 			SetState(userID, StateIdle)
 
 		} else if state == StateWaitDelChannel {
@@ -148,10 +155,12 @@ func ProcessDialog(userID int64, text string, username string) {
 			text = strings.ReplaceAll(text, "@", "")
 
 			if !DataBaseDelChannel(userID, text) {
-				SendMessage(userID, MessageChannelNotExists)
+				SendMessage(userID, MessageChannelNotListed)
 			} else {
 				go ApiDelChannel(userID, text)
-				go TelegramDelChannel(text)
+				if len(DataBaseGetUsers(text)) == 0 {
+					go TelegramDelChannel(text)
+				}
 				SendMessage(userID, fmt.Sprintf(MessageDelChannelOK, text))
 			}
 			SetState(userID, StateIdle)
@@ -160,4 +169,27 @@ func ProcessDialog(userID int64, text string, username string) {
 			SendMessage(userID, MessageUnknownCommand)
 		}
 	}
+}
+
+func ProcessCallback(userID int64, messageID int, data string, text string) {
+	defer func() {
+		err := recover()
+		if err != nil {
+			fmt.Println(err)
+			SendToAdmins(fmt.Sprintf("CallbackError: %s", err))
+		}
+	}()
+
+	var label int8
+
+	if data[0] == '1' {
+		label = 1
+	} else {
+		label = 0
+	}
+
+	text = text[:strings.LastIndex(text, "\n")]
+
+	DisableInlineKeyboard(userID, messageID)
+	go ApiTrain(userID, data[1:], text, label)
 }

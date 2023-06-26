@@ -143,10 +143,10 @@ func ApiPredict(channel string, text string, users []int64) []int64 {
 
 type TrainRequest struct {
 	Text  string `json:"text"`
-	Label int16  `json:"label"`
+	Label int8   `json:"label"`
 }
 
-func ApiTrain(userID int64, channel string, text string, label int16) {
+func ApiTrain(userID int64, channel string, text string, label int8) {
 	url := GetMLUrl(3) + "train/" + fmt.Sprint(userID) + "/" + channel + "/"
 
 	request := TrainRequest{Text: text, Label: label}
