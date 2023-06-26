@@ -22,9 +22,6 @@ func InitApi(config ServerConfig) {
 }
 
 func GetMLUrl(weight int16) string {
-	if len(MLServers) == 1 {
-		return MLServers[0]
-	}
 	return Balancer.Get(weight)
 }
 

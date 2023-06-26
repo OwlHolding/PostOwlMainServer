@@ -31,7 +31,7 @@ func ProcessPost(PostBody []byte) {
 	var post Post
 	err := json.Unmarshal(PostBody, &post)
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 
 	users := DataBaseGetUsers(post.Channel)
